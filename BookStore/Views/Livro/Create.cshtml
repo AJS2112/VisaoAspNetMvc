@@ -1,6 +1,7 @@
 ﻿@model BookStore.ViewModels.EditorBookViewModel
 @{
     ViewBag.Title = "Criando um novo livro";
+    Layout = "~/Views/Shared/_LayoutNovo.cshtml";
 }
 
 
@@ -22,7 +23,11 @@
     <button type="submit" class="btn btn-primary">Criar</button>
 }
 
-
+@section menu{
+    <div>
+        Olá, você está na página de criação
+    </div>
+}
 
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
