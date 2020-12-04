@@ -15,7 +15,8 @@ namespace BookStore.Controllers
         BookStoreDataContext _db = new BookStoreDataContext();
 
         [Route("listar")]
-        public ActionResult Index() {
+        public ActionResult Index()
+        {
             return View(_db.Livros.ToList());
         }
 
@@ -25,10 +26,10 @@ namespace BookStore.Controllers
             var categorias = _db.Categorias.ToList();
             var model = new EditorBookViewModel
             {
-                Nome="",
-                ISBN="",
-                CategoriaId=0,
-                CategoriaOptions=new SelectList(categorias,"Id","Nome")
+                Nome = "",
+                ISBN = "",
+                CategoriaId = 0,
+                CategoriaOptions = new SelectList(categorias, "Id", "Nome")
             };
 
             return View(model);
@@ -38,17 +39,38 @@ namespace BookStore.Controllers
         [HttpPost]
         public ActionResult Create(EditorBookViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                var categorias = _db.Categorias.ToList();
+                model.CategoriaOptions = new SelectList(categorias, "Id", "Nome");
+
+                return View(model);
+            }
+
             var livro = new Livro();
             livro.Nome = model.Nome;
             livro.ISBN = model.ISBN;
             livro.DataLancamento = model.DataLancamento;
             livro.CategoriaId = model.CategoriaId;
             _db.Livros.Add(livro);
-            _db.SaveChanges();
+
+            try
+            {
+                throw new Exception("Falha no banco");
+                _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("Mensagem", ex.Message);
+                var categorias = _db.Categorias.ToList();
+                model.CategoriaOptions = new SelectList(categorias, "Id", "Nome");
+
+                return View(model);
+            }
 
             return RedirectToAction("Index");
         }
-
 
         [Route("editar")]
         public ActionResult Edit(int id)

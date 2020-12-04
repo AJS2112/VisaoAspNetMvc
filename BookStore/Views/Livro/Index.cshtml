@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutNovo.cshtml";
+    //Layout = "~/Views/Shared/_LayoutNovo.cshtml";
 }
 
 <h2>Index</h2>
@@ -13,8 +13,8 @@
 
 @Html.Partial("Partials/ListBookPartial", Model)
 
-@section menu{
-    <div>
-        Olá, você está na página principal
-    </div>
+@section Scripts{
+    <script>
+        alert('Olá');
+    </script>
 }

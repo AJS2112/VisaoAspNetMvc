@@ -162,6 +162,7 @@
     <Compile Include="Repositories\AuthorRepository.cs" />
     <Compile Include="Repositories\Contracts\IAuthorRepository.cs" />
     <Compile Include="RoutesContraints\ValuesConstraint.cs" />
+    <Compile Include="Validators\CheckAgeValidator.cs" />
     <Compile Include="ViewModels\EditorBookViewModel.cs" />
     <Compile Include="ViewModels\VincularLivroAutorViewModel.cs" />
   </ItemGroup>
